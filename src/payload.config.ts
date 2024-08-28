@@ -7,12 +7,12 @@ import Users from "./collections/Users";
 
 const payloadConfig = buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [/*Users*/],
+    collections: [Users],
     routes: {
         admin: '/sell'
     },
     admin: {
-        // user: 'users',
+        user: 'users',
         bundler: webpackBundler(),
         meta: {
             titleSuffix: "RapidAssets",

@@ -1,4 +1,4 @@
-import payload, { Payload } from 'payload';
+import payload, { type Payload } from 'payload';
 import type { InitOptions } from 'payload/config';
 
 let cached = (global as any).payload
@@ -15,7 +15,6 @@ async function getPayloadClient({
 } : {
     initOptions?: Partial<InitOptions>
 } = {}): Promise<Payload> {
-    console.log(process.env.PAYLOAD_SECRET, process.env.DATABASE_URL);
     if (!process.env.PAYLOAD_SECRET) {
         throw new Error("PAYLOAD_SECRET is missing")
     }

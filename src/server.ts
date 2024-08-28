@@ -1,13 +1,14 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import * as trpcExpress from '@trpc/server/adapters/express';
 import { getPayloadClient } from './lib/payloadClient';
 import { nextApp, nextHandler } from './next.utils';
-import { trpcServerRouter } from './lib/trpc/server';
+import { trpcServerRouter } from './trpc';
+import { createContext } from './trpc/init';
 
-const app = express();
 const PORT = Number(process.env.PORT) || 3000;
+const app = express();
 
 function init() {
     dotenv.config({
@@ -27,26 +28,29 @@ async function start() {
         }
     });
 
-    app.use((req, res) => nextHandler(req, res));
-
-    app.use('/api/trpc', trpcExpress.createExpressMiddleware({
-        router: trpcServerRouter,
-        createContext: ({req, res}) => ({
-            req,
-            res
-        })
-    }))
-
     nextApp.prepare()
     .then(() => {
-        payload.logger.info(`next.js started and running at http://localhost:${PORT}`);
-    });
+        app.use(express.json());
 
-    app.listen(PORT, async () => {
-        payload.logger.info(
-            "Server starting, waiting for next ..."
-        );
-    });
+        app.use('/api/trpc', trpcExpress.createExpressMiddleware({
+            router: trpcServerRouter,
+            createContext
+        }));
+
+        app.all('*', (req: Request, res: Response) => {
+            return nextHandler(req, res);
+        });
+
+
+        payload.logger.info(`next.js ready...`);
+
+        app.listen(PORT, async () => {
+            payload.logger.info(
+                `Server started, and running at http://localhost:${PORT}`
+            );
+        });
+    })
+    .catch(error => console.error(error))
 }
 
 start();

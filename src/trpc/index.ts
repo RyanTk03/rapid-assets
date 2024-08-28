@@ -1,8 +1,8 @@
-import { trpcRouter, trpcPublicProcedure } from "./init";
+import { trpcRouter } from "./init";
 import { authRouter } from "./routers/auth";
 
 const trpcServerRouter = trpcRouter({
-    apiRoute: authRouter,
+    auth: authRouter,
 });
 
 export type TrpcServerRouter = typeof trpcServerRouter;

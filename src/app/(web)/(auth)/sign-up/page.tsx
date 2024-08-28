@@ -13,12 +13,12 @@ import { ArrowRight } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner'
 import { ZodError } from 'zod'
-import { useRouter } from 'next/navigation'
 import {
     SignupCredentialsValidator,
     TSignupCredentialsValidator
 } from '@/lib/validators';
-import { trpc } from '@/lib/trpc/client';
+import { useRouter } from 'next/navigation';
+import { trpc } from '@/trpc/client';
 
 const Page = () => {
     const {
@@ -28,46 +28,43 @@ const Page = () => {
     } = useForm<TSignupCredentialsValidator>({
         resolver: zodResolver(SignupCredentialsValidator),
     })
+const router = useRouter();
+    const { mutate, isPending } = trpc.auth.createUser.useMutation({
+        onError: (err) => {
+            // if (err.data?.code === 'CONFLICT') {
+            //     toast.error(
+            //         'This email is already in use. Sign in instead?'
+            //     )
+            //     return
+            // }
 
-    const router = useRouter();
+            // if (err instanceof ZodError) {
+            //     toast.error(err.issues[0].message)
 
-    const { data } = trpc.apiRoute.useQuery();
-    console.log(data);
+            //     return
+            // }
 
-    // const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
-    //     onError: (err) => {
-    //         if (err.data?.code === 'CONFLICT') {
-    //             toast.error(
-    //                 'This email is already in use. Sign in instead?'
-    //             )
-    //             return
-    //         }
+            // toast.error(
+            //     'Something went wrong. Please try again.'
+            // )
+            console.error('error:', err)
+        },
 
-    //         if (err instanceof ZodError) {
-    //             toast.error(err.issues[0].message)
+        onSuccess: (res) => {
+            // toast.success(
+            //     `Verification email sent to ${sentToEmail}.`
+            // )
+            // router.push('/verify-email?to=' + sentToEmail)
+            console.log('success:', res)
+        },
+    })
 
-    //             return
-    //         }
-
-    //         toast.error(
-    //             'Something went wrong. Please try again.'
-    //         )
-    //     },
-
-    //     onSuccess: ({ sentToEmail }) => {
-    //         toast.success(
-    //             `Verification email sent to ${sentToEmail}.`
-    //         )
-    //         router.push('/verify-email?to=' + sentToEmail)
-    //     },
-    // })
-
-    // const onSubmit = ({
-    //     email,
-    //     password,
-    // }: TAuthCredentialsValidator) => {
-    //     mutate({ email, password })
-    // }
+    const onSubmit = ({
+        email,
+        password,
+    }: TSignupCredentialsValidator) => {
+        mutate({email, password});
+    }
 
     return (
         <div className='container relative flex pt-20 flex-col items-center justify-center lg:px-0'>
@@ -91,41 +88,41 @@ const Page = () => {
                 </div>
 
                 <div className='grid gap-6'>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                     <div className='grid gap-2'>
                         <div className='grid gap-1 py-2'>
-                        <Label htmlFor='email'>Email</Label>
-                        <Input
-                            {...register('email')}
-                            className={cn({
-                            'focus-visible:ring-red-500':
-                                errors.email,
-                            })}
-                            placeholder='you@example.com'
-                        />
-                        {errors?.email && (
-                            <p className='text-sm text-red-500'>
-                            {errors.email.message}
-                            </p>
-                        )}
+                            <Label htmlFor='email'>Email</Label>
+                            <Input
+                                {...register('email')}
+                                className={cn({
+                                'focus-visible:ring-red-500':
+                                    errors.email,
+                                })}
+                                placeholder='you@example.com'
+                            />
+                            {errors?.email && (
+                                <p className='text-sm text-red-500'>
+                                {errors.email.message}
+                                </p>
+                            )}
                         </div>
 
                         <div className='grid gap-1 py-2'>
-                        <Label htmlFor='password'>Password</Label>
-                        <Input
-                            {...register('password')}
-                            type='password'
-                            className={cn({
-                            'focus-visible:ring-red-500':
-                                errors.password,
-                            })}
-                            placeholder='Password'
-                        />
-                        {errors?.password && (
-                            <p className='text-sm text-red-500'>
-                            {errors.password.message}
-                            </p>
-                        )}
+                            <Label htmlFor='password'>Password</Label>
+                            <Input
+                                {...register('password')}
+                                type='password'
+                                className={cn({
+                                'focus-visible:ring-red-500':
+                                    errors.password,
+                                })}
+                                placeholder='Password'
+                            />
+                            {errors?.password && (
+                                <p className='text-sm text-red-500'>
+                                {errors.password.message}
+                                </p>
+                            )}
                         </div>
 
                         <Button>Sign up</Button>
