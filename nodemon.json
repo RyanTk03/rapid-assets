@@ -1,4 +1,5 @@
 {
+    "restorable": "rs",
     "watch": [
         "src/server.ts",
         "src/collections/**/*.ts",

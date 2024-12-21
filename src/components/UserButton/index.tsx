@@ -1,6 +1,16 @@
+"use client";
 import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import useAuth from '@/hooks/useAuth';
 
 // #region constants
 
@@ -22,8 +32,41 @@ const defaultProps = {};
 /**
  * 
  */
-const UserButton = () => {
-    return <div>Account</div>;
+const UserButton = ({useremail}) => {
+    const { signout } = useAuth();
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger
+                asChild
+                className="overflow-hidden"
+            >
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="relative"
+                >
+                    My account
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+                align="end"
+                className="bg-white w-60"
+            >
+                <DropdownMenuLabel>{useremail}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                    <Link href="/dashbord">Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={signout}
+                >
+                    Log out
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
 }
 
 UserButton.propTypes = propTypes;

@@ -7,6 +7,7 @@ function handler (req: NextRequest) {
        endpoint: `/api/trpc`,
        req: req as any,
        router: trpcServerRouter,
+       // @ts-expect-error context passed from express middleware
        createContext: () => ({})
     });
     // return Response.json({message: 'success 🎉🎉'}); // For test purpose

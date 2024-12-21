@@ -6,17 +6,17 @@ const PRODUCTS_CATEGORIES = [
             {
               name: 'Editor picks',
               href: `/products?category=ui_kits`,
-              imageSrc: '/nav/ui-kits/mixed.jpg',
+              imageSrc: '/images/nav/ui-kits/mixed.jpg',
             },
             {
               name: 'New Arrivals',
               href: '/products?category=ui_kits&sort=desc',
-              imageSrc: '/nav/ui-kits/blue.jpg',
+              imageSrc: '/images/nav/ui-kits/blue.jpg',
             },
             {
               name: 'Bestsellers',
               href: '/products?category=ui_kits',
-              imageSrc: '/nav/ui-kits/purple.jpg',
+              imageSrc: '/images/nav/ui-kits/purple.jpg',
             },
         ],
     },
@@ -27,17 +27,17 @@ const PRODUCTS_CATEGORIES = [
             {
               name: 'Favorite Icon Picks',
               href: `/products?category=icons`,
-              imageSrc: '/nav/icons/picks.jpg',
+              imageSrc: '/images/nav/icons/picks.jpg',
             },
             {
               name: 'New Arrivals',
               href: '/products?category=icons&sort=desc',
-              imageSrc: '/nav/icons/new.jpg',
+              imageSrc: '/images/nav/icons/new.jpg',
             },
             {
               name: 'Bestselling Icons',
               href: '/products?category=icons',
-              imageSrc: '/nav/icons/bestsellers.jpg',
+              imageSrc: '/images/nav/icons/bestsellers.jpg',
             },
         ],
     },
@@ -48,17 +48,17 @@ const PRODUCTS_CATEGORIES = [
             {
                 name: 'Favorite Illustrations',
                 href: `/products?category=icons`,
-                imageSrc: '/nav/icons/picks.jpg',
+                imageSrc: '/images/nav/icons/picks.jpg',
             },
             {
                 name: '2D',
                 href: '/products?category=icons&sort=desc',
-                imageSrc: '/nav/icons/new.jpg',
+                imageSrc: '/images/nav/icons/new.jpg',
             },
             {
                 name: '3D',
                 href: '/products?category=icons',
-                imageSrc: '/nav/icons/bestsellers.jpg',
+                imageSrc: '/images/nav/icons/bestsellers.jpg',
             },
         ],
     },

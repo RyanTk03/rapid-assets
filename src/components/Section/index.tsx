@@ -1,12 +1,12 @@
-import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
 
 interface PageProps {
     className?: string,
     children: ReactNode,
 }
 
-export default function Page ({className, children}: PageProps) {
+const Section = ({className, children}: PageProps) => {
     return (
         <div className={cn(
             "mx-auto w-full max-w-screen-xl px-2.5 md:px-20",
@@ -16,3 +16,5 @@ export default function Page ({className, children}: PageProps) {
         </div>
     );
 }
+
+export default Section;

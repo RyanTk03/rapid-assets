@@ -1,18 +1,18 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ChevronDown } from "lucide-react"
-import { Button } from "../ui/button"
-import { cn } from "@/lib/utils"
-import { PRODUCTS_CATEGORIES } from "@/config"
+import Image from 'next/image'
+import Link from 'next/link'
+import { ChevronDown } from 'lucide-react'
+import { Button } from '../ui/button'
+import { cn } from '@/lib/utils'
+import { PRODUCTS_CATEGORIES } from '@/config/productsCategories'
 
-type Category = (typeof PRODUCTS_CATEGORIES)[number]
+type Category = (typeof PRODUCTS_CATEGORIES)[number];
 
 interface NavItemProps {
-    category: Category
-    handleOpen: () => void
-    handleClose: () => void
-    isOpen: boolean
-    isAnyOpen: boolean
+    category: Category;
+    handleOpen: () => void;
+    handleClose: () => void;
+    isOpen: boolean;
+    isAnyOpen: boolean;
 }
 
 const NavItem = ({
@@ -91,7 +91,7 @@ const NavItem = ({
                 </div>
             ) : null}
         </div>
-    )
+    );
 }
 
-export default NavItem
+export default NavItem;

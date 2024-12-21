@@ -4,18 +4,20 @@ import { slateEditor } from "@payloadcms/richtext-slate";
 import path from "path";
 import { buildConfig } from "payload/config";
 import Users from "./collections/Users";
+import Products from "./collections/Products";
+import Media from "./collections/Media";
 
 const payloadConfig = buildConfig({
     serverURL: process.env.NEXT_PUBLIC_SERVER_URL || '',
-    collections: [Users],
+    collections: [Users, Products, Media],
     routes: {
-        admin: '/sell'
+        admin: '/admin'
     },
     admin: {
         user: 'users',
         bundler: webpackBundler(),
         meta: {
-            titleSuffix: "RapidAssets",
+            titleSuffix: process.env.APP_NAME_URL,
             favicon: '/favicon.ico',
             ogImage: 'thumbnail.jpg'
         }
